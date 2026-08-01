@@ -7,16 +7,15 @@ import lombok.Data;
 @Data
 @Builder
 @Entity
-@Table(name = "properties", schema = "property")
+@Table(name = "property_informations", schema = "properties")
 public class PropertyInformation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "property_id")
-    private Property property;
+    @Column(name = "property_id")
+    private Integer property;
 
     @Embedded
     private Info info;
