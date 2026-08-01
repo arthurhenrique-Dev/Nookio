@@ -27,8 +27,6 @@ public class AuditAspect {
 
     @Around("@annotation(auditLog)")
     public Object logAudit(ProceedingJoinPoint joinPoint, AuditLog auditLog) throws Throwable {
-        Object result = joinPoint.proceed();
-
         String ip = extractFromRequestContext(
                 attr -> {
                     HttpServletRequest req = attr.getRequest();
@@ -40,24 +38,30 @@ public class AuditAspect {
                 "SYSTEM_UNKNOWN"
         );
 
-        Result auditResult = extractFromRequestContext(
-                attr -> Optional.ofNullable(attr.getResponse())
-                        .map(HttpServletResponse::getStatus)
-                        .map(Result::fromHttpStatusCode)
-                        .orElse(Result.ERROR),
-                Result.ERROR
-        );
+        Object result;
 
-        AuditLogData logData = AuditLogData.builder()
-                .ip(ip)
-                .resource(auditLog.resource())
-                .operation(auditLog.operation())
-                .result(auditResult.ordinal())
-                .build();
+        try {
+            result = joinPoint.proceed();
+        } finally {
 
-        eventPublisher.publishEvent(new AuditLogEvent(this, logData));
+            Result auditResult = extractFromRequestContext(
+                    attr -> Optional.ofNullable(attr.getResponse())
+                            .map(HttpServletResponse::getStatus)
+                            .map(Result::fromHttpStatusCode)
+                            .orElse(Result.ERROR),
+                    Result.ERROR
+            );
 
-        return result;
+            AuditLogData logData = AuditLogData.builder()
+                    .ip(ip)
+                    .resource(auditLog.resource())
+                    .operation(auditLog.operation())
+                    .result(auditResult.ordinal())
+                    .build();
+
+            eventPublisher.publishEvent(new AuditLogEvent(this, logData));
+        }
+            return result;
     }
     private <T> T extractFromRequestContext(Function<ServletRequestAttributes, T> extractor, T defaultValue) {
         return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
