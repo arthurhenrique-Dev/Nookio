@@ -11,6 +11,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -24,50 +25,48 @@ import java.util.function.Function;
 public class AuditAspect {
 
     private final ApplicationEventPublisher eventPublisher;
+    private final HttpServletRequest request;
 
     @Around("@annotation(auditLog)")
     public Object logAudit(ProceedingJoinPoint joinPoint, AuditLog auditLog) throws Throwable {
-        String ip = extractFromRequestContext(
-                attr -> {
-                    HttpServletRequest req = attr.getRequest();
-                    String xForwarded = req.getHeader("X-Forwarded-For");
-                    return (xForwarded != null && !xForwarded.isBlank())
-                            ? xForwarded.split(",")[0].trim()
-                            : req.getRemoteAddr();
-                },
-                "SYSTEM_UNKNOWN"
-        );
+        String ip = request.getRemoteAddr();
 
-        Object result;
+        Object response = null;
 
         try {
-            result = joinPoint.proceed();
+            response = joinPoint.proceed();
         } finally {
 
-            Result auditResult = extractFromRequestContext(
-                    attr -> Optional.ofNullable(attr.getResponse())
-                            .map(HttpServletResponse::getStatus)
-                            .map(Result::fromHttpStatusCode)
-                            .orElse(Result.ERROR),
-                    Result.ERROR
-            );
-
+            Result requestResult = Result
+                    .fromHttpStatusCode(
+                            extractStatusCode(response)
+                    );
             AuditLogData logData = AuditLogData.builder()
                     .ip(ip)
                     .resource(auditLog.resource())
                     .operation(auditLog.operation())
-                    .result(auditResult.ordinal())
+                    .result(requestResult.getCode())
                     .build();
 
             eventPublisher.publishEvent(new AuditLogEvent(this, logData));
         }
-            return result;
+            return response;
     }
-    private <T> T extractFromRequestContext(Function<ServletRequestAttributes, T> extractor, T defaultValue) {
-        return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
-                .filter(ServletRequestAttributes.class::isInstance)
-                .map(ServletRequestAttributes.class::cast)
-                .map(extractor)
-                .orElse(defaultValue);
+    private int extractStatusCode(Object response){
+
+        if(response instanceof ResponseEntity<?> responseEntity)
+            return responseEntity
+                    .getStatusCode()
+                    .value();
+
+        ServletRequestAttributes attr =
+                (ServletRequestAttributes) RequestContextHolder
+                        .getRequestAttributes();
+
+        if (attr != null && attr.getResponse() != null)
+            return attr
+                    .getResponse()
+                    .getStatus();
+        return 500;
     }
 }
