@@ -18,7 +18,7 @@ public class ApplicationStress {
     private volatile double usePercentage = 0;
     private volatile LocalDateTime lastCheck = null;
     private volatile Long usedMemory;
-    private final Long maxMemory;
+    private volatile Long maxMemory = Runtime.getRuntime().maxMemory();
 
     public void manageStressApplication(Long used, Long max){
         usePercentage = ((double) used / max) * 100;
