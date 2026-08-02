@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuditLogFallbackRepository extends JpaRepository<AuditLogEntity, Integer> {
 
-    Page<AuditLogEntity> findAllOrderByTimestampAsc(PageRequest of);
+    Page<AuditLogEntity> findAllByOrderByAuditLogDataTimestampAsc(PageRequest of);
 }

@@ -28,7 +28,7 @@ public class AuditLogRetryScheduler {
     public void processPendingLogsInBatch() {
         while (!stress.isStressed()) {
             List<AuditLogEntity> pendingEntities = fallbackRepository
-                    .findAllOrderByTimestampAsc(PageRequest.of(0, BATCH_CHUNK_SIZE))
+                    .findAllByOrderByAuditLogDataTimestampAsc(PageRequest.of(0, BATCH_CHUNK_SIZE))
                     .getContent();
 
             if (pendingEntities.isEmpty()) {
