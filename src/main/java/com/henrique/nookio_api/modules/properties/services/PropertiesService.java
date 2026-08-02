@@ -38,4 +38,8 @@ public class PropertiesService {
 
         return repository.findAllBy(spec, pageable);
     }
+
+    public void createProperty(){}
+
+    public void proceedProperty(){}
 }

@@ -4,7 +4,7 @@ import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogEntity;
 import com.henrique.nookio_api.core.audit_logs.repository.AuditLogFallbackRepository;
 import com.henrique.nookio_api.core.health_monitor.ApplicationStress;
-import com.henrique.nookio_api.core.configs.AnalyticConfig;
+import com.henrique.nookio_api.infraestructure.configs.AnalyticConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;

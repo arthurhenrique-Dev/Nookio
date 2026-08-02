@@ -2,7 +2,7 @@ package com.henrique.nookio_api.core.audit_logs.service.strategies.implementatio
 
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import com.henrique.nookio_api.core.audit_logs.service.strategies.intefaces.AuditStrategy;
-import com.henrique.nookio_api.core.configs.AnalyticConfig;
+import com.henrique.nookio_api.infraestructure.configs.AnalyticConfig;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

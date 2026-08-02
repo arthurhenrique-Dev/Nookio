@@ -1,4 +1,4 @@
-package com.henrique.nookio_api.modules.schedules;
+package com.henrique.nookio_api.modules.schedules.models;
 
 import com.henrique.nookio_api.modules.properties.models.Avaliation;
 import jakarta.persistence.*;
