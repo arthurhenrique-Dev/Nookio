@@ -1,4 +1,4 @@
-package com.henrique.nookio_api.core.clients.clients;
+package com.henrique.nookio_api.core.configs;
 
 import com.henrique.nookio_api.shared.external_communication.ApiClient;
 import org.springframework.beans.factory.annotation.Value;

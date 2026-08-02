@@ -3,7 +3,7 @@ package com.henrique.nookio_api.core.audit_logs.service.strategies.implementatio
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogEntity;
 import com.henrique.nookio_api.core.audit_logs.repository.AuditLogFallbackRepository;
-import com.henrique.nookio_api.core.audit_logs.service.strategies.contract.AuditStrategy;
+import com.henrique.nookio_api.core.audit_logs.service.strategies.intefaces.AuditStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

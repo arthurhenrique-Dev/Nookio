@@ -3,7 +3,8 @@ package com.henrique.nookio_api.core.audit_logs.service;
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogEntity;
 import com.henrique.nookio_api.core.audit_logs.repository.AuditLogFallbackRepository;
-import com.henrique.nookio_api.core.integrations.analytics.config.AnalyticConfig;
+import com.henrique.nookio_api.core.health_monitor.ApplicationStress;
+import com.henrique.nookio_api.core.configs.AnalyticConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -21,13 +22,13 @@ public class AuditLogRetryScheduler {
 
     private final AuditLogFallbackRepository fallbackRepository;
     private final AnalyticConfig analyticConfig;
-    private final SystemMemoryMonitor memoryMonitor;
+    private final ApplicationStress stress;
 
     @Scheduled(fixedDelay = 15000)
     public void processPendingLogsInBatch() {
-        while (!memoryMonitor.isMemoryUsageAboveThreshold()) {
+        while (!stress.isStressed()) {
             List<AuditLogEntity> pendingEntities = fallbackRepository
-                    .findAll(PageRequest.of(0, BATCH_CHUNK_SIZE))
+                    .findAllOrderByTimestampAsc(PageRequest.of(0, BATCH_CHUNK_SIZE))
                     .getContent();
 
             if (pendingEntities.isEmpty()) {

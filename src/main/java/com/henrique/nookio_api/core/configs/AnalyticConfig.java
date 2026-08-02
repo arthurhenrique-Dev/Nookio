@@ -1,4 +1,4 @@
-package com.henrique.nookio_api.core.integrations.analytics.config;
+package com.henrique.nookio_api.core.configs;
 
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import com.henrique.nookio_api.shared.external_communication.ApiClient;
