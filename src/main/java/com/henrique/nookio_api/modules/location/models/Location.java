@@ -20,21 +20,6 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String street;
-    private String number;
-    private String complement;
-    private String neighborhood;
-    private String city;
-    private String state;
-
-    @Column(name = "zip_code")
-    private String zipCode;
-
-    private String country;
-
-    @Column(precision = 10, scale = 8)
-    private BigDecimal latitude;
-
-    @Column(precision = 11, scale = 8)
-    private BigDecimal longitude;
+    @Embedded
+    private LocationInformation locationInformation;
 }

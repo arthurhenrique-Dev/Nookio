@@ -3,8 +3,10 @@ package com.henrique.nookio_api.modules.files.annotations.facade;
 import com.henrique.nookio_api.modules.files.annotations.chain.FileProcess;
 import com.henrique.nookio_api.modules.files.annotations.chain.ImageProcess;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+@Component
 @RequiredArgsConstructor
 public class ValidateFilesFacade {
 

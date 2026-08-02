@@ -1,4 +1,4 @@
-package com.henrique.nookio_api.infraestructure.configs;
+package com.henrique.nookio_api.infraestructure.microsservices.analytic;
 
 import com.henrique.nookio_api.shared.external_communication.ApiClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AnalyticsClientConfig {
 
-    @Value("${ANALYTICS_SERVICE_URL}")
+    @Value("${ANALYTICS_SERVICE_URL:http://localhost:8081}")
     private String receiverUrl;
 
     @Bean

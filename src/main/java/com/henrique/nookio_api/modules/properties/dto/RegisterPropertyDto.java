@@ -2,7 +2,7 @@ package com.henrique.nookio_api.modules.properties.dto;
 
 import com.henrique.nookio_api.modules.files.annotations.annotation.ValidFile;
 import com.henrique.nookio_api.modules.location.dto.LocationInput;
-import com.henrique.nookio_api.modules.properties.models.Info;
+import com.henrique.nookio_api.modules.properties.models.PropertyInformationDetails;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ public record RegisterPropertyDto(
 
         @NotBlank String title,
         @NotNull Integer ownerId,
-        Info info,
+        PropertyInformationDetails propertyInformationDetails,
         LocationInput locationInput,
         @NotEmpty
         List<
