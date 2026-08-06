@@ -5,7 +5,6 @@ import com.henrique.nookio_api.core.audit_logs.enums.Result;
 import com.henrique.nookio_api.core.audit_logs.event.AuditLogEvent;
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,9 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.util.Optional;
-import java.util.function.Function;
 
 @Aspect
 @Component
