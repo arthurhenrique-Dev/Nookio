@@ -51,6 +51,9 @@ public class VwPropertiesCatalog {
     @Column(name = "total_schedules")
     private Integer totalSchedules;
 
+    @Column(name = "total_price")
+    private BigDecimal totalPrice;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;

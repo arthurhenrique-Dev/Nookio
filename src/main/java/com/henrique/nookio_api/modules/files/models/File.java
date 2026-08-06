@@ -17,8 +17,7 @@ public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Enumerated(EnumType.STRING)
     @Column(name = "type_file")
-    private TypeFile typeFile;
+    private String typeFile;
     private String url;
 }

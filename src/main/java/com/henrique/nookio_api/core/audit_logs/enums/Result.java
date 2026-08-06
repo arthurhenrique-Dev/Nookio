@@ -1,5 +1,8 @@
 package com.henrique.nookio_api.core.audit_logs.enums;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum Result {
     SUCCESS(0, 200, 299),
     FAILED(1, 400, 400),
@@ -12,12 +15,6 @@ public enum Result {
     private final Integer code;
     private final int minHttpCode;
     private final int maxHttpCode;
-
-    Result(Integer code, int minHttpCode, int maxHttpCode) {
-        this.code = code;
-        this.minHttpCode = minHttpCode;
-        this.maxHttpCode = maxHttpCode;
-    }
 
     public Integer getCode() {
         return code;
