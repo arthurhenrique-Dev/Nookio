@@ -1,6 +1,8 @@
-package com.henrique.nookio_api.core.audit_logs.service.facade;
+package com.henrique.nookio_api.core.audit_logs.service.orchestror;
 
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
+import com.henrique.nookio_api.core.audit_logs.service.strategies.implementations.DatabaseLogDispatch;
+import com.henrique.nookio_api.core.audit_logs.service.strategies.implementations.DirectLogDispatch;
 import com.henrique.nookio_api.core.audit_logs.service.strategies.intefaces.AuditStrategy;
 import com.henrique.nookio_api.core.health_monitor.ApplicationStress;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +14,14 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class AuditFacade {
+public class AuditOrchestror {
 
-    private final Map<String, AuditStrategy> strategies;
+    private final DatabaseLogDispatch dbDispatch;
+    private final DirectLogDispatch directDispatch;
     private final ApplicationStress stress;
 
     public void process(AuditLogData data) {
-        if (!stress.isStressed()) strategies.get("directLogDispatch").handle(data);
-        strategies.get("databaseLogDispatch").handle(data);
+        if (!stress.isStressed()) directDispatch.handle(data);
+        dbDispatch.handle(data);
     }
 }

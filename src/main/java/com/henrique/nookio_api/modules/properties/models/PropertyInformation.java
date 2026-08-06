@@ -18,5 +18,5 @@ public class PropertyInformation {
     private Integer property;
 
     @Embedded
-    private Info info;
+    private PropertyInformationDetails propertyInformationDetails;
 }

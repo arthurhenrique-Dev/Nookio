@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Info {
+public class PropertyInformationDetails {
 
     @Column(name = "property_type")
     @Enumerated(EnumType.STRING)

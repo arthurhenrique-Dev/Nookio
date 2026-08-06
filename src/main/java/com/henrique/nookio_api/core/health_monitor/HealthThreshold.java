@@ -32,10 +32,6 @@ public class HealthThreshold {
         NotificationEmitter emitter = (NotificationEmitter) memoryDetails;
 
         NotificationListener listener = (notification, handback) -> {
-            if (notification.getType().equals(MemoryNotificationInfo.MEMORY_THRESHOLD_EXCEEDED)) {
-                CompositeData cd = (CompositeData) notification.getUserData();
-                MemoryNotificationInfo info = MemoryNotificationInfo.from(cd);
-            }
             
             MemoryUsage usage = memoryDetails.getHeapMemoryUsage();
             stress.manageStressApplication(usage.getUsed(), usage.getMax());
