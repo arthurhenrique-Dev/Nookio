@@ -7,7 +7,6 @@ import com.henrique.nookio_api.modules.properties.dto.UpdatePropertyDto;
 import com.henrique.nookio_api.modules.properties.models.Property;
 import com.henrique.nookio_api.modules.properties.models.PropertyPhoto;
 import com.henrique.nookio_api.modules.properties.repository.PropertyPhotoRepository;
-import com.henrique.nookio_api.modules.properties.services.strategies.UpdatePropertyStrategy;
 import com.henrique.nookio_api.modules.properties.validator.PropertyPhotosValidator;
 import jakarta.transaction.Transactional;
 
@@ -23,14 +22,14 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class UpdatePhotosStrategy implements UpdatePropertyStrategy {
+public class UpdatePropertyPhotosStrategy {
 
     private final PropertyPhotoRepository photoRepository;
     private final FileService fileService;
 
-    @Override
     @Transactional
     public void update(Property property, UpdatePropertyDto dto) {
+
         Long propertyId = property.getId().longValue();
         if (dto.swapPhotoId1() != null && dto.swapPhotoId2() != null) swapPhotosOrder(propertyId, dto.swapPhotoId1(), dto.swapPhotoId2());
         if (dto.photos() != null && !dto.photos().isEmpty()) processPhotosList(propertyId, dto.photos());

@@ -1,11 +1,15 @@
 package com.henrique.nookio_api.modules.users.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users", schema = "users")
 public class User {
@@ -19,4 +23,7 @@ public class User {
     private String lastName;
     private String email;
     private String phoneNumber;
+    @Column(name = "cpf", length = 11, unique = true)
+    private String cpf;
 }
+

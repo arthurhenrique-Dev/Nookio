@@ -3,7 +3,7 @@ package com.henrique.nookio_api.modules.properties.services.facade;
 import com.henrique.nookio_api.modules.properties.dto.RegisterPropertyDto;
 import com.henrique.nookio_api.modules.properties.dto.SnapshotProperty;
 import com.henrique.nookio_api.modules.properties.models.Property;
-import com.henrique.nookio_api.modules.properties.services.create_chain.CreatePropertyChain;
+import com.henrique.nookio_api.modules.properties.services.chains.CreatePropertyChain;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

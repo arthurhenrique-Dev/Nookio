@@ -2,9 +2,9 @@ package com.henrique.nookio_api.core.audit_logs.service;
 
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogEntity;
+import com.henrique.nookio_api.infraestructure.microsservices.analytic.AnalyticsPort;
 import com.henrique.nookio_api.core.audit_logs.repository.AuditLogFallbackRepository;
 import com.henrique.nookio_api.core.health_monitor.ApplicationStress;
-import com.henrique.nookio_api.infraestructure.microsservices.analytic.AnalyticConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,7 @@ public class AuditLogRetryScheduler {
     private static final int BATCH_CHUNK_SIZE = 80;
 
     private final AuditLogFallbackRepository fallbackRepository;
-    private final AnalyticConfig analyticConfig;
+    private final AnalyticsPort analyticsPort;
     private final ApplicationStress stress;
 
     @Scheduled(fixedDelay = 15000)
@@ -49,10 +49,10 @@ public class AuditLogRetryScheduler {
         log.info("Sending batch chunk of {} pending audit logs to Analytics...", dataList.size());
 
         try {
-            boolean isAccepted = analyticConfig.senderAuditLogs(dataList);
+            boolean isAccepted = analyticsPort.sendAuditLogs(dataList);
 
             if (isAccepted) {
-                fallbackRepository.deleteAll(pendingEntities);
+                fallbackRepository.truncate();
                 log.info("Successfully dispatched chunk of {} logs and purged from local database.", dataList.size());
                 return true;
             }

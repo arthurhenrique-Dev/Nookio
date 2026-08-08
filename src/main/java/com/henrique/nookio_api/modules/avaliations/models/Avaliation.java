@@ -1,4 +1,4 @@
-package com.henrique.nookio_api.modules.properties.models;
+package com.henrique.nookio_api.modules.avaliations.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
