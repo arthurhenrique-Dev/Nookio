@@ -10,8 +10,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface PropertiesRepository extends JpaRepository<Property, Integer> {
-
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT p FROM properties.properties p WHERE id = :id")
-    Optional<Property> lockPropertyForSchedule(@Param("id") Integer id);
 }

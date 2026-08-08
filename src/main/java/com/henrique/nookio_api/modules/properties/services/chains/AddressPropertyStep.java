@@ -3,12 +3,12 @@ import com.henrique.nookio_api.modules.location.models.LocationInformation;
 import com.henrique.nookio_api.modules.location.ports.AddressClient;
 import com.henrique.nookio_api.modules.properties.dto.RegisterPropertyDto;
 import com.henrique.nookio_api.modules.properties.dto.SnapshotProperty;
-import lombok.experimental.SuperBuilder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuperBuilder
+@RequiredArgsConstructor
 @Order(1)
 public class AddressPropertyStep extends CreatePropertyChain{
 

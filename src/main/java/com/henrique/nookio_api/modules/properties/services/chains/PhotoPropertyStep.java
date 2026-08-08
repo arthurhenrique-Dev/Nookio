@@ -4,13 +4,13 @@ import com.henrique.nookio_api.modules.files.services.FileService;
 import com.henrique.nookio_api.modules.properties.dto.RegisterPropertyDto;
 import com.henrique.nookio_api.modules.properties.dto.SnapshotProperty;
 
-import lombok.experimental.SuperBuilder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Order(3)
-@SuperBuilder
+@RequiredArgsConstructor
 public class PhotoPropertyStep extends CreatePropertyChain {
 
     private final FileService fileService;
