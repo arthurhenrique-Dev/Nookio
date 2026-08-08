@@ -9,7 +9,9 @@ import com.henrique.nookio_api.modules.schedules.services.reserve.ReserveSchedul
 import com.henrique.nookio_api.modules.users.models.User;
 import com.henrique.nookio_api.modules.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class ReserveFacade {
 

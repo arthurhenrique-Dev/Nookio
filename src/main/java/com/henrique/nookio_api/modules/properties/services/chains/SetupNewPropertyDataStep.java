@@ -13,7 +13,7 @@ import com.henrique.nookio_api.modules.properties.repository.PropertiesRepositor
 import com.henrique.nookio_api.modules.properties.repository.PropertyInformationRepository;
 import com.henrique.nookio_api.modules.properties.repository.PropertyPhotoRepository;
 import com.henrique.nookio_api.modules.properties.validator.PropertyPhotosValidator;
-import lombok.experimental.SuperBuilder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(4)
-@SuperBuilder
+@RequiredArgsConstructor
 public class SetupNewPropertyDataStep extends CreatePropertyChain {
 
     private final LocationRepository locationRepository;

@@ -2,13 +2,11 @@ package com.henrique.nookio_api.modules.properties.services.chains;
 
 import com.henrique.nookio_api.modules.properties.dto.RegisterPropertyDto;
 import com.henrique.nookio_api.modules.properties.dto.SnapshotProperty;
-import lombok.experimental.SuperBuilder;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
-@SuperBuilder
 public class InformationPropertyStep extends CreatePropertyChain{
 
     @Override
