@@ -11,7 +11,7 @@ import com.henrique.nookio_api.modules.properties.repository.VwPropertiesCatalog
 import com.henrique.nookio_api.modules.properties.repository.VwPropertiesCatalogSpecs;
 import com.henrique.nookio_api.modules.properties.dto.UpdatePropertyDto;
 import com.henrique.nookio_api.modules.properties.services.facade.CreatePropertyFacade;
-import com.henrique.nookio_api.modules.properties.services.facade.UpdatePropertyOrchestror;
+import com.henrique.nookio_api.modules.properties.services.orchestror.UpdatePropertyOrchestror;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +27,7 @@ public class PropertiesService {
     private final VwPropertiesCatalogRepository vwPropertiesCatalogRepository;
     private final PropertiesRepository propertiesRepository;
     private final CreatePropertyFacade createFacade;
-    private final UpdatePropertyOrchestror updateFacade;
+    private final UpdatePropertyOrchestror updateOrchestror;
     private final CatalogMapper catalogMapper;
 
     public Slice<VwPropertiesCatalog> getCatalog(InputCatalog input) {
@@ -54,7 +54,7 @@ public class PropertiesService {
     }
 
     public void updateProperty(UpdatePropertyDto dto){
-        updateFacade.execute(dto);
+        updateOrchestror.execute(dto);
     }
 
     @Transactional

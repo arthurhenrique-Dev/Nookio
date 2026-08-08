@@ -1,4 +1,4 @@
-package com.henrique.nookio_api.modules.properties.services.create_chain;
+package com.henrique.nookio_api.modules.properties.services.chains;
 
 import com.henrique.nookio_api.modules.files.models.File;
 import com.henrique.nookio_api.modules.location.models.Location;
