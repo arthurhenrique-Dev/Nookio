@@ -1,8 +1,8 @@
 package com.henrique.nookio_api.core.audit_logs.service.strategies.implementations;
 
 import com.henrique.nookio_api.core.audit_logs.model.AuditLogData;
+import com.henrique.nookio_api.infraestructure.microsservices.analytic.AnalyticsPort;
 import com.henrique.nookio_api.core.audit_logs.service.strategies.intefaces.AuditStrategy;
-import com.henrique.nookio_api.infraestructure.microsservices.analytic.AnalyticConfig;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DirectLogDispatch implements AuditStrategy {
 
-    private final AnalyticConfig analytic;
+    private final AnalyticsPort analyticsPort;
 
     @Override
     public void handle(AuditLogData data) {
-        analytic.senderAuditLogs(data);
+        analyticsPort.sendAuditLogs(data);
     }
 }

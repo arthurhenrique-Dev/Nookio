@@ -1,21 +1,21 @@
-package com.henrique.nookio_api.modules.properties.services.facade;
+package com.henrique.nookio_api.modules.properties.services.orchestror;
 
 import com.henrique.nookio_api.modules.properties.dto.UpdatePropertyDto;
 import com.henrique.nookio_api.modules.properties.models.Property;
 import com.henrique.nookio_api.modules.properties.repository.PropertiesRepository;
-import com.henrique.nookio_api.modules.properties.services.strategies.UpdatePropertyStrategy;
+import com.henrique.nookio_api.modules.properties.services.update.UpdatePropertyPhotosStrategy;
+import com.henrique.nookio_api.modules.properties.services.update.UpdatePropertyInformationStrategy;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class UpdatePropertyOrchestror {
 
     private final PropertiesRepository propertiesRepository;
-    private final List<UpdatePropertyStrategy> updateStrategies;
+    private final UpdatePropertyInformationStrategy informationStrategy;
+    private final UpdatePropertyPhotosStrategy photosStrategy;
 
     @Transactional
     public void execute(UpdatePropertyDto dto) {
@@ -26,9 +26,8 @@ public class UpdatePropertyOrchestror {
             property.setTitle(dto.title());
             propertiesRepository.save(property);
         }
-        for (UpdatePropertyStrategy strategy : updateStrategies) {
-            strategy.update(property, dto);
-        }
+        if (dto.informationUpdate() != null) informationStrategy.update(property, dto.informationUpdate());
     }
 }
+
 

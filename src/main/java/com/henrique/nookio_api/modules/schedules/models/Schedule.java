@@ -1,6 +1,7 @@
 package com.henrique.nookio_api.modules.schedules.models;
 
-import com.henrique.nookio_api.modules.properties.models.Avaliation;
+import com.henrique.nookio_api.modules.avaliations.models.Avaliation;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -37,7 +39,7 @@ public class Schedule {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Builder.Default
-    private ScheduleStatus status = ScheduleStatus.PENDING_PAYMENT;
+    private ScheduleStatus status = ScheduleStatus.PENDING;
 
     @Column(name = "start_date", nullable = false)
     private LocalDate start;
@@ -56,5 +58,6 @@ public class Schedule {
     private Avaliation avaliation;
 
     @Column(name = "payment_id")
-    private String paymentId;
+    private UUID paymentId;
 }
+

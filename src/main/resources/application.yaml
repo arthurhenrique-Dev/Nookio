@@ -8,3 +8,12 @@ spring:
   threads:
     virtual:
       enabled: true
+
+clients:
+  api-id: ${API_ID}
+  analytics:
+    url: ${ANALYTICS_SERVICE_URL:http://localhost:8081}${BASE_ENDPOINT}
+    transport: ${ANALYTICS_TRANSPORT:http}
+  payments:
+    url: ${PAYMENTS_SERVICE_URL:http://localhost:8082}${BASE_ENDPOINT}
+    transport: ${PAYMENTS_TRANSPORT:http}
